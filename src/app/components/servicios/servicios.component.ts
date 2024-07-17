@@ -13,40 +13,7 @@ register();
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   template: `
     <header>
-        <swiper-container>
-            <swiper-slide>
-              <div class="style-slide">
-                <h2>HolaMundo</h2>
-                <h4>HolaMundo</h4>
-                <button>Más info</button>
-              </div>
-             
-            </swiper-slide>
-            <swiper-slide>
-              <div class="style-slide">
-                <h2>HolaMundo</h2>
-                <h4>HolaMundo</h4>
-                <button>Más info</button>
-              </div>
-             
-            </swiper-slide>
-            <swiper-slide>
-              <div class="style-slide">
-                <h2>HolaMundo</h2>
-                <h4>HolaMundo</h4>
-                <button>Más info</button>
-              </div>
-             
-            </swiper-slide>
-            <swiper-slide>
-              <div class="style-slide">
-                <h2>HolaMundo</h2>
-                <h4>HolaMundo</h4>
-                <button>Más info</button>
-              </div>
-             
-            </swiper-slide>
-        </swiper-container>
+        HolaMundoPruebaFinal
     </header>
   `,
   styleUrl: './servicios.component.css',
