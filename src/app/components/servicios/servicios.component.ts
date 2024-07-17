@@ -37,7 +37,6 @@ register();
 export class ServiciosComponent {
 
 
-  swiperElements = signal<SwiperContainer | null>(null);
   swiperObjects: IServicios[] = serviciosJSON;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
