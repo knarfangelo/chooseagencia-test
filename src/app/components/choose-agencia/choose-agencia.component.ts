@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NavegacionComponent } from '../navegacion/navegacion.component';
 import { InicioComponent } from "../inicio/inicio.component";
 import { NosotrosComponent } from "../nosotros/nosotros.component";
+import { ServiciosComponent } from "../servicios/servicios.component";
 
 @Component({
   selector: 'app-choose-agencia',
@@ -11,11 +12,13 @@ import { NosotrosComponent } from "../nosotros/nosotros.component";
     CommonModule, NavegacionComponent,
     InicioComponent,
     NosotrosComponent,
+    ServiciosComponent
 ],
   template: `
     <app-navegacion></app-navegacion>
     <app-inicio></app-inicio>
     <app-nosotros></app-nosotros>
+    <app-servicios></app-servicios>
   `,
   styleUrls: ['./choose-agencia.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
