@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { register, SwiperContainer } from 'swiper/element/bundle';
 import { isPlatformBrowser } from '@angular/common';
-import { Swiper, SwiperOptions } from 'swiper/types';
+import { SwiperOptions } from 'swiper/types';
 import { serviciosJSON } from './serviciosDB/serviciosJSON';
 import { IServicios } from './serviciosDB/IServicios';
 register();
@@ -15,7 +15,7 @@ register();
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   template: `
     <header>
-        <swiper-container init=false>
+        <swiper-container>
           @for (item of swiperObjects; track $index) {
             <swiper-slide>
               <div class="style-slide">
@@ -24,7 +24,9 @@ register();
                 <button>Más info</button>
                 <img [src]="item.img" alt="">
               </div>
+             
             </swiper-slide>
+
           }
         </swiper-container>
     </header>
@@ -35,35 +37,41 @@ register();
 export class ServiciosComponent implements OnInit {
 
   swiperObjects: IServicios[] = serviciosJSON;
+  swiperElements = signal<SwiperContainer | null>(null);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const swiperEl: SwiperContainer | null = document.querySelector('.swiper-container');
+    const swiperElemConstructor = document.querySelector('swiper-container');
+    if (swiperElemConstructor) {
 
-      if (swiperEl) {
-        const swiperParams: SwiperOptions = {
-          slidesPerView: 1,
-          spaceBetween: 20,
-          breakpoints: {
-            640: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 3,
-            },
-          },
-          on: {
-            init() {
-              // Swiper initialized callback
-            },
-          },
-        };
-
-        Object.assign(swiperEl, swiperParams);
-        new Swiper(swiperEl, swiperParams);
-      }
+          const swiperOptions: SwiperOptions = {
+      navigation:{
+        enabled:true,
+        nextEl:'.swiper-button-next',
+        prevEl:'.swiper-button-prev',
+      },
+      slidesPerView: 'auto',
+      speed: 3000,
+      loop:true,
+      spaceBetween:50,
+      breakpoints: {
+        0:{
+          slidesPerView:1,
+        },
+        640: {
+          slidesPerView:2,
+        },
+        1024: {
+          slidesPerView:3,
+        },
+      },
+    };
+    Object.assign(swiperElemConstructor!, swiperOptions);
+    this.swiperElements.set(swiperElemConstructor as SwiperContainer);
+    this.swiperElements()?.initialize();
+    }
     }
   }
 }
