@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Inject, PLATFORM_ID, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { register, SwiperContainer } from 'swiper/element/bundle';
 import { isPlatformBrowser } from '@angular/common';
 import { SwiperOptions } from 'swiper/types';
@@ -34,7 +34,7 @@ register();
   styleUrl: './servicios.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ServiciosComponent implements AfterViewInit {
+export class ServiciosComponent {
 
 
   swiperElements = signal<SwiperContainer | null>(null);
@@ -42,34 +42,5 @@ export class ServiciosComponent implements AfterViewInit {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-    const swiperElemConstructor = document.querySelector('swiper-container');
-    const swiperOptions: SwiperOptions = {
-      navigation:{
-        enabled:true,
-        nextEl:'.swiper-button-next',
-        prevEl:'.swiper-button-prev',
-      },
-      slidesPerView: 'auto',
-      speed: 3000,
-      loop:true,
-      spaceBetween:50,
-      breakpoints: {
-        0:{
-          slidesPerView:1,
-        },
-        640: {
-          slidesPerView:2,
-        },
-        1024: {
-          slidesPerView:3,
-        },
-      },
-    };
-    Object.assign(swiperElemConstructor!, swiperOptions);
-    this.swiperElements.set(swiperElemConstructor as SwiperContainer);
-    this.swiperElements()?.initialize();
-    }
-  }
+  
 }
