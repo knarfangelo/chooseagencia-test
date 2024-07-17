@@ -11,9 +11,8 @@ import { InicioComponent } from "../inicio/inicio.component";
     InicioComponent,
 ],
   template: `
-
-    <app-inicio></app-inicio>
     <app-navegacion></app-navegacion>
+    <app-inicio></app-inicio>
 
 
   `,
