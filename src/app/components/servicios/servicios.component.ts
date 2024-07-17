@@ -35,37 +35,35 @@ register();
 export class ServiciosComponent implements OnInit {
 
   swiperObjects: IServicios[] = serviciosJSON;
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) { 
-      const swiperEl:SwiperContainer | null = document.querySelector('swiper-container');
+    if (isPlatformBrowser(this.platformId)) {
+      const swiperEl: SwiperContainer | null = document.querySelector('.swiper-container');
 
-      // swiper parameters
-      const swiperParams:SwiperOptions = {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        breakpoints: {
-          640: {
-            slidesPerView: 2,
+      if (swiperEl) {
+        const swiperParams: SwiperOptions = {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          breakpoints: {
+            640: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 3,
+            },
           },
-          1024: {
-            slidesPerView: 3,
+          on: {
+            init() {
+              // Swiper initialized callback
+            },
           },
-        },
-        on: {
-          init() {
-            // ...
-          },
-        },
-      };
-    
-      // now we need to assign all parameters to Swiper element
-      Object.assign(swiperEl!, swiperParams);
-    
-      // and now initialize it
-      swiperEl?.initialize();
+        };
+
+        Object.assign(swiperEl, swiperParams);
+        new Swiper(swiperEl, swiperParams);
+      }
     }
-
   }
 }
