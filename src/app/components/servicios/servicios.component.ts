@@ -10,7 +10,6 @@ register();
   imports: [
     CommonModule,
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   template: `
     <header>
         HolaMundoPruebaFinal
