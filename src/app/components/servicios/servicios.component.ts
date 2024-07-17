@@ -1,5 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { register } from 'swiper/element/bundle';
 
 @Component({
   selector: 'app-servicios',
@@ -15,11 +16,20 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './servicios.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ServiciosComponent {
+export class ServiciosComponent implements OnInit {
 
 
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+   
+  }
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      register();
+    }
 
+
+  }
+  
   
 }
