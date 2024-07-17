@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { register, SwiperContainer } from 'swiper/element/bundle';
 import { isPlatformBrowser } from '@angular/common';
-import { SwiperOptions } from 'swiper/types';
+import { Swiper, SwiperOptions } from 'swiper/types';
 import { serviciosJSON } from './serviciosDB/serviciosJSON';
 import { IServicios } from './serviciosDB/IServicios';
 register();
@@ -15,7 +15,7 @@ register();
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   template: `
     <header>
-        <swiper-container>
+        <swiper-container init=false>
           @for (item of swiperObjects; track $index) {
             <swiper-slide>
               <div class="style-slide">
@@ -24,9 +24,7 @@ register();
                 <button>Más info</button>
                 <img [src]="item.img" alt="">
               </div>
-             
             </swiper-slide>
-
           }
         </swiper-container>
     </header>
@@ -36,40 +34,38 @@ register();
 })
 export class ServiciosComponent implements OnInit {
 
-
-  swiperElements = signal<SwiperContainer | null>(null);
   swiperObjects: IServicios[] = serviciosJSON;
-
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-    const swiperElemConstructor = document.querySelector('swiper-container');
-    const swiperOptions: SwiperOptions = {
-      navigation:{
-        enabled:true,
-        nextEl:'.swiper-button-next',
-        prevEl:'.swiper-button-prev',
-      },
-      slidesPerView: 'auto',
-      speed: 3000,
-      loop:true,
-      spaceBetween:50,
-      breakpoints: {
-        0:{
-          slidesPerView:1,
+    if (isPlatformBrowser(this.platformId)) { 
+      const swiperEl:SwiperContainer | null = document.querySelector('swiper-container');
+
+      // swiper parameters
+      const swiperParams:SwiperOptions = {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        breakpoints: {
+          640: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
         },
-        640: {
-          slidesPerView:2,
+        on: {
+          init() {
+            // ...
+          },
         },
-        1024: {
-          slidesPerView:3,
-        },
-      },
-    };
-    Object.assign(swiperElemConstructor!, swiperOptions);
-    this.swiperElements.set(swiperElemConstructor as SwiperContainer);
-    this.swiperElements()?.initialize();
+      };
+    
+      // now we need to assign all parameters to Swiper element
+      Object.assign(swiperEl!, swiperParams);
+    
+      // and now initialize it
+      swiperEl?.initialize();
     }
+
   }
 }
