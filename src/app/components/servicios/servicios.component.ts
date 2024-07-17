@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
-import { register, SwiperContainer } from 'swiper/element/bundle';
-import { serviciosJSON } from './serviciosDB/serviciosJSON';
-import { IServicios } from './serviciosDB/IServicios';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { register } from 'swiper/element/bundle';
 register();
 @Component({
   selector: 'app-servicios',
@@ -22,7 +20,7 @@ export class ServiciosComponent {
 
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor() {}
 
   
 }
